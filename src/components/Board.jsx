@@ -3,8 +3,10 @@ import Square from "./Square";
 import "./board.css";
 
 const Board = ({ xIsNext, squares, onPlay }) => {
+  const winnerInfo = calculateWinner(squares);
+  const winner = winnerInfo ? winnerInfo[0] : null;
+  const winningArray = winnerInfo ? winnerInfo[1] : null;
 
-  const winner = calculateWinner(squares);
   let status;
 
   const isDraw = squares.every((square) => square !== null) && winner === null;
@@ -24,11 +26,22 @@ const Board = ({ xIsNext, squares, onPlay }) => {
     const squaresCopy = [...squares];
     squaresCopy[i] = xIsNext ? "X" : "O";
 
-    onPlay(squaresCopy)
+    onPlay(squaresCopy);
   }
 
   function renderSquare(i) {
-    return <Square value={squares[i]} onSquareClick={() => handleClick(i)} />;
+    const isWinningSquare = winningArray && winningArray.includes(i);
+    const squareStyle = isWinningSquare
+      ? { backgroundColor: "red", color: "white" }
+      : {};
+
+    return (
+      <Square
+        value={squares[i]}
+        onSquareClick={() => handleClick(i)}
+        style={squareStyle}
+      />
+    );
   }
   function renderRow(start) {
     return (
@@ -71,7 +84,7 @@ function calculateWinner(squares) {
       squares[a] === squares[b] &&
       squares[a] === squares[c]
     ) {
-      return squares[a];
+      return [squares[a], [a, b, c]];
     }
   }
   return null;

@@ -58,12 +58,18 @@ const Game = () => {
     }
   }
 
+  function handleNewGame() {
+    setHistory([Array(9).fill(null)])
+    setCurrentMove(0);
+  }
+
   const orderedMoves = toggle === "ascending" ? moves : [...moves].reverse();
 
   return (
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <button className="new-game" onClick={handleNewGame}>New Game</button>
       </div>
       <div className="game-info">
         <div className="toggle-group">
