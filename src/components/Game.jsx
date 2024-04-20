@@ -5,7 +5,7 @@ const Game = () => {
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [toggle, setToggle] = useState(true)
+  const [toggle, setToggle] = useState("ascending");
 
   const currentSquares = history[currentMove];
 
@@ -44,10 +44,21 @@ const Game = () => {
     );
   });
 
-  function handleToggle() {
-    setToggle(!toggle)
+  //   function handleToggle() {
+  //     setToggle(!toggle)
+
+  function ascendingOrder() {
+    if (toggle !== "ascending") {
+      setToggle("ascending");
+    }
   }
-  const orderedMoves = toggle ? moves : [...moves].reverse()
+  function descendingOrder() {
+    if (toggle !== "descending") {
+      setToggle("descending");
+    }
+  }
+
+  const orderedMoves = toggle === "ascending" ? moves : [...moves].reverse();
 
   return (
     <div className="game">
@@ -56,8 +67,12 @@ const Game = () => {
       </div>
       <div className="game-info">
         <div className="toggle-group">
-            <button className="toggle-on" onClick={handleToggle}>Ascending</button>
-            <button className="toggle-off" onClick={handleToggle}>Descending</button>
+          <button className="toggle-on" onClick={ascendingOrder}>
+            Ascending
+          </button>
+          <button className="toggle-off" onClick={descendingOrder}>
+            Descending
+          </button>
         </div>
         <ol>{orderedMoves}</ol>
       </div>
