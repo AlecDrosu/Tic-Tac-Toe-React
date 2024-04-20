@@ -1,0 +1,23 @@
+.square {
+    border-radius: None;
+    border: 1px solid gray;
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+}
+
+.board-row {
+    display: flex;
+}
+
+.game {
+    display: flex;
+}
+
+.status {
+    margin-top: 10px;
+}
+
+.game-board {
+    margin: 30px;
+}
